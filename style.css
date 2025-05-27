@@ -32,14 +32,14 @@ body {
 }
 
 main {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	max-width: 700px;
-	margin: 0 auto;
-	flex: 1;
-	gap: 1rlh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+    flex: 1;
+    gap: 1rlh;
+    padding: 0 2rem;
 }
 
 img {
@@ -62,9 +62,14 @@ h1 {
     font-size: 3em;
     color: #ff69b4;
     text-align: center;
-    margin: 2rem 0;
+    margin: 2rem auto;
+    width: 100%;
     font-family: "Brush Script MT", cursive;
     text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.3);
+    max-width: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #result {
@@ -81,7 +86,7 @@ h1 {
         0 10px 30px rgba(255, 192, 203, 0.4),
         0 0 20px rgba(255, 255, 255, 0.8),
         inset 0 0 15px rgba(255, 182, 193, 0.3);
-    max-width: 600px;
+    max-width: 700px;
     margin: 2rem auto;
     border: 3px solid #ffd1dc;
     transform: translateY(0);
@@ -163,14 +168,13 @@ h1 {
 }
 
 form {
-    background: rgba(255, 255, 255, 0.9);
-    padding: 2rem;
-    border-radius: 20px;
-    box-shadow: 0 5px 15px rgba(255, 192, 203, 0.3);
-    border: 2px dashed #ffd1dc;
-    margin: 2rem auto;
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
     display: flex;
     gap: 1rem;
+    align-items: center;
+    justify-content: center;
 }
 
 button {
@@ -223,4 +227,16 @@ input[type="file"]:hover {
 
 #image-container img:hover {
     transform: scale(1.05);
+}
+
+.intro-container {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 0 1rem;
+}
+
+.intro-text {
+    font-size: 1.2em;
+    margin-bottom: 1rem;
 }
