@@ -1,69 +1,195 @@
 *,
 *::before,
 *::after {
+	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
-	box-sizing: border-box;
-}
-html {
-	font-size: 110%;
+	/* System UI */
+	font-family: system-ui, sans-serif;
+	font-weight: normal;
 }
 
 html,
 body {
-	width: 100%;
 	height: 100%;
+	width: 100%;
 }
 
 body {
-	line-height: 1.5;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: linear-gradient(135deg, #ffe5f0 0%, #fff6e5 100%);
+	color: #f96cb3;
+	line-height: 1.8;
 }
-
 main {
 	display: flex;
-	justify-content: flex-start;
-	align-items: center;
 	flex-direction: column;
-	height: 100%;
+	align-items: center;
+	justify-content: center;
 	max-width: 700px;
 	margin: 0 auto;
-	padding: 1rlh;
+	flex: 1;
 	gap: 1rlh;
 }
 
+img {
+	max-width: 250px;
+	height: auto;
+	display: block;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: normal;
+	margin-bottom: 1em;
+}
+
+h1 {
+    font-size: 3em;
+    color: #ff69b4;
+    text-align: center;
+    margin: 2rem 0;
+    font-family: "Brush Script MT", cursive;
+    text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.3);
+}
+
+#result {
+	margin-top: 1em;
+	align-self: flex-start;
+}
+
+.quote-container {
+    margin-top: 20px;
+    padding: 2.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(255, 192, 203, 0.3);
+    max-width: 600px;
+    margin: 2rem auto;
+    border: 2px solid #ffd1dc;
+    transform: translateY(0);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.quote-container::before {
+    content: '💝';
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    font-size: 2em;
+}
+
+.quote-container::after {
+    content: '✨';
+    position: absolute;
+    bottom: -15px;
+    right: 20px;
+    font-size: 2em;
+}
+
+.quote-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(255, 192, 203, 0.4);
+}
+
+.image-preview {
+    margin-bottom: 20px;
+}
+
+.image-preview img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.quote {
+    font-family: "Comic Sans MS", cursive;
+    font-size: 1.8em;
+    line-height: 1.6;
+    color: #ff69b4;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding: 0 1rem;
+}
+
+.quote::before,
+.quote::after {
+    content: '"';
+    font-size: 3em;
+    color: #3498db;
+    position: absolute;
+    opacity: 0.2;
+}
+
+.quote::before {
+    left: -1rem;
+    top: -1rem;
+}
+
+.quote::after {
+    right: -1rem;
+    bottom: -2rem;
+}
+
+.attribution {
+    font-family: "Comic Sans MS", cursive;
+    font-size: 1.2em;
+    color: #ff8fb7;
+    font-style: italic;
+    text-align: right;
+    margin-top: 1rem;
+}
+
 form {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: 10px;
-	width: 100%;
-}
-
-input {
-	height: 100%;
-	flex-grow: 1;
-	padding: 8px;
-	margin: 0;
-}
-
-input {
-	appearance: none;
-	-webkit-appearance: none;
-	margin: 0;
-	border: 1px solid #000;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(255, 192, 203, 0.3);
+    border: 2px dashed #ffd1dc;
+    margin: 2rem auto;
+    display: flex;
+    gap: 1rem;
 }
 
 button {
-	height: 100%;
-	padding: 8px;
-	border: 1px solid #777;
-	background-color: #000;
-	color: #fff;
-	cursor: pointer;
-	flex: 0 0 100px;
+    background: linear-gradient(45deg, #ff69b4, #ff8fb7);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    cursor: pointer;
+    font-family: "Comic Sans MS", cursive;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
 }
 
 button:hover {
-	background-color: #fff;
-	color: #000;
+    background: linear-gradient(45deg, #ff8fb7, #ff69b4);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 105, 180, 0.4);
+}
+
+input[type="file"] {
+    padding: 1rem;
+    border: 3px dashed #ffd1dc;
+    border-radius: 15px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+#image-container img {
+    border-radius: 20px;
+    border: 3px solid #ffd1dc;
+    box-shadow: 0 8px 20px rgba(255, 192, 203, 0.3);
+    margin: 1.5rem 0;
 }
