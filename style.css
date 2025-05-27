@@ -1,12 +1,11 @@
 *,
 *::before,
 *::after {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-	/* System UI */
-	font-family: system-ui, sans-serif;
-	font-weight: normal;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Comic Sans MS", "Marker Felt", cursive;
+    font-weight: normal;
 }
 
 html,
@@ -20,10 +19,18 @@ body {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	background: linear-gradient(135deg, #ffe5f0 0%, #fff6e5 100%);
-	color: #f96cb3;
+	background: linear-gradient(135deg, #ffd6e7 0%, #ffefff 50%, #e5f0ff 100%);
+	color: #ff69b4;
 	line-height: 1.8;
+	animation: backgroundShimmer 15s ease infinite;
 }
+
+@keyframes backgroundShimmer {
+	0% { background-position: 0% 50%; }
+	50% { background-position: 100% 50%; }
+	100% { background-position: 0% 50%; }
+}
+
 main {
 	display: flex;
 	flex-direction: column;
@@ -68,36 +75,41 @@ h1 {
 .quote-container {
     margin-top: 20px;
     padding: 2.5rem;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 25px;
-    box-shadow: 0 10px 30px rgba(255, 192, 203, 0.3);
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 35px;
+    box-shadow: 
+        0 10px 30px rgba(255, 192, 203, 0.4),
+        0 0 20px rgba(255, 255, 255, 0.8),
+        inset 0 0 15px rgba(255, 182, 193, 0.3);
     max-width: 600px;
     margin: 2rem auto;
-    border: 2px solid #ffd1dc;
+    border: 3px solid #ffd1dc;
     transform: translateY(0);
-    transition: all 0.3s ease;
-    position: relative;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .quote-container::before {
-    content: '💝';
+    content: '🌸';
     position: absolute;
-    top: -15px;
+    top: -20px;
     left: 20px;
-    font-size: 2em;
+    font-size: 2.5em;
+    animation: float 3s ease-in-out infinite;
 }
 
 .quote-container::after {
-    content: '✨';
+    content: '🦄';
     position: absolute;
-    bottom: -15px;
+    bottom: -20px;
     right: 20px;
-    font-size: 2em;
+    font-size: 2.5em;
+    animation: float 3s ease-in-out infinite reverse;
 }
 
-.quote-container:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(255, 192, 203, 0.4);
+@keyframes float {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(5deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
 }
 
 .image-preview {
@@ -142,11 +154,12 @@ h1 {
 
 .attribution {
     font-family: "Comic Sans MS", cursive;
-    font-size: 1.2em;
-    color: #ff8fb7;
+    font-size: 1.3em;
+    color: #ff69b4;
     font-style: italic;
     text-align: right;
     margin-top: 1rem;
+    text-shadow: 1px 1px 3px rgba(255, 105, 180, 0.3);
 }
 
 form {
@@ -161,35 +174,53 @@ form {
 }
 
 button {
-    background: linear-gradient(45deg, #ff69b4, #ff8fb7);
+    background: linear-gradient(45deg, #ff69b4, #ffb6c1, #ffd1dc);
     color: white;
     border: none;
-    padding: 1rem 2rem;
-    border-radius: 25px;
+    padding: 1.2rem 2.5rem;
+    border-radius: 50px;
     cursor: pointer;
     font-family: "Comic Sans MS", cursive;
-    font-size: 1.1em;
+    font-size: 1.2em;
     transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+    box-shadow: 
+        0 5px 15px rgba(255, 105, 180, 0.4),
+        inset 0 0 10px rgba(255, 255, 255, 0.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    animation: buttonGlow 2s ease-in-out infinite;
 }
 
-button:hover {
-    background: linear-gradient(45deg, #ff8fb7, #ff69b4);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(255, 105, 180, 0.4);
+@keyframes buttonGlow {
+    0% { box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4); }
+    50% { box-shadow: 0 5px 25px rgba(255, 105, 180, 0.7); }
+    100% { box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4); }
 }
 
 input[type="file"] {
-    padding: 1rem;
-    border: 3px dashed #ffd1dc;
-    border-radius: 15px;
+    padding: 1.2rem;
+    border: 4px dashed #ffb6c1;
+    border-radius: 25px;
     width: 100%;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+}
+
+input[type="file"]:hover {
+    border-color: #ff69b4;
+    background: rgba(255, 255, 255, 0.95);
+    transform: scale(1.02);
 }
 
 #image-container img {
-    border-radius: 20px;
-    border: 3px solid #ffd1dc;
-    box-shadow: 0 8px 20px rgba(255, 192, 203, 0.3);
+    border-radius: 30px;
+    border: 5px solid #ffd1dc;
+    box-shadow: 
+        0 10px 25px rgba(255, 192, 203, 0.4),
+        0 0 15px rgba(255, 255, 255, 0.8);
     margin: 1.5rem 0;
+    transition: all 0.3s ease;
+}
+
+#image-container img:hover {
+    transform: scale(1.05);
 }
