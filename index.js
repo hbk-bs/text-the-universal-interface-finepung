@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const file = formData.get('image');
                 
                 if (!(file instanceof File)) {
-                    throw new Error('No file selected');
+                    throw new Error('✨ Oh liebliches Wesen, ich sehne mich nach einem Bildchen von dir! Bitte schenke mir eines! 🌸');
                 }
 
                 // Validate file
@@ -160,10 +160,10 @@ function showLoadingIndicator(container) {
 
 function validateFile(file) {
     if (!(file instanceof File)) {
-        throw new Error('No file selected');
+        throw new Error('✨ Oh liebliches Wesen, ich sehne mich nach einem Bildchen von dir! Bitte schenke mir eines! 🌸');
     }
     if (!file.type.startsWith('image/')) {
-        throw new Error('Only image files are allowed');
+        throw new Error('✨ Oh liebliches Wesen, ich sehne mich nach einem Bildchen von dir! Bitte schenke mir eines! 🎀');
     }
 }
 
