@@ -2,61 +2,151 @@
 const apiEndpoint = 'https://ff6347-openai-api-image.val.run/';
 
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.querySelector('form');
-    if (!form) return;
+    // Create custom cursor
+    const cursor = document.createElement('div');
+    cursor.className = 'custom-cursor';
+    cursor.innerHTML = '💖';
+    document.body.appendChild(cursor);
 
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const resultContainer = document.getElementById('result');
-        const imageContainer = document.getElementById('image-container');
-
-        // Show loading state
-        let loadingInterval = showLoadingIndicator(resultContainer);
-
-        try {
-            const formData = new FormData(form);
-            const file = formData.get('image');
-            
-            if (!(file instanceof File)) {
-                throw new Error('No file selected');
-            }
-
-            // Validate file
-            validateFile(file);
-
-            // Convert and display image
-            const dataURL = await fileToDataURL(file);
-            if (imageContainer) {
-                imageContainer.innerHTML = `<img src="${dataURL}" alt="uploaded image" />`;
-            }
-
-            // Get API response
-            const response = await fetchAPIResponse(dataURL);
-            const result = await response.json();
-
-            // Validate and parse response
-            const parsedQuote = parseAndValidateResponse(result);
-
-            // Display result
-            if (resultContainer) {
-                resultContainer.innerHTML = `
-                    <div class="quote-container">
-                        <p class="quote">"${parsedQuote.quote}"</p>
-                        <p class="attribution">- ${parsedQuote.attribution}</p>
-                    </div>
-                `;
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            if (resultContainer) {
-                resultContainer.innerHTML = `<p>Error: ${error.message}</p>`;
-            }
-        } finally {
-            clearInterval(loadingInterval);
-        }
+    // Update cursor position
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
     });
+    
+    const form = document.querySelector('form');
+    const randomButton = document.getElementById('random-quote-btn');
+    
+    // Existing form handler
+    if (form) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const resultContainer = document.getElementById('result');
+            const imageContainer = document.getElementById('image-container');
+
+            // Show loading state
+            let loadingInterval = showLoadingIndicator(resultContainer);
+
+            try {
+                const formData = new FormData(form);
+                const file = formData.get('image');
+                
+                if (!(file instanceof File)) {
+                    throw new Error('No file selected');
+                }
+
+                // Validate file
+                validateFile(file);
+
+                // Convert and display image
+                const dataURL = await fileToDataURL(file);
+                if (imageContainer) {
+                    imageContainer.innerHTML = `<img src="${dataURL}" alt="uploaded image" />`;
+                }
+
+                // Get API response
+                const response = await fetchAPIResponse(dataURL);
+                const result = await response.json();
+
+                // Validate and parse response
+                const parsedQuote = parseAndValidateResponse(result);
+
+                // Display result
+                if (resultContainer) {
+                    resultContainer.innerHTML = `
+                        <div class="quote-container">
+                            <p class="quote">"${parsedQuote.quote}"</p>
+                            <p class="attribution">- ${parsedQuote.attribution}</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                if (resultContainer) {
+                    resultContainer.innerHTML = `<p>Error: ${error.message}</p>`;
+                }
+            } finally {
+                clearInterval(loadingInterval);
+            }
+        });
+    }
+
+    // Random quote button handler
+    if (randomButton) {
+        randomButton.addEventListener('click', async () => {
+            const resultContainer = document.getElementById('result');
+            let loadingInterval = showLoadingIndicator(resultContainer);
+
+            try {
+                const response = await fetch(apiEndpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        messages: [
+                            {
+                                role: 'system',
+                                content: `Du bist ein Generator für ultra-kitschige Kalendersprüche. Generiere einen zufälligen, inspirierenden Spruch. Befolge diese Regeln:
+                                    1. Formatiere deine Antwort immer als JSON-Objekt: {quote: string, attribution: string}
+                                    2. Nutze universelle Themen wie Träume, Reisen, Kreativität oder Mysterien
+                                    3. Halte die Zitate kurz und prägnant (max. 2 Sätze)
+                                    4. Füge mindestens 2-3 passende Emojis pro Zitat hinzu
+                                    5. Erfinde kreative, übertrieben poetische Quellen
+                                    6. Verwende überschwängliche Adjektive
+                                    7. Füge metaphorische Elemente ein
+                                    8. Benutze einen schwärmerischen, gefühlvollen Ton`
+                            }
+                        ]
+                    })
+                });
+
+                const result = await response.json();
+                const parsedQuote = parseAndValidateResponse(result);
+                displayResult(parsedQuote);
+
+            } catch (error) {
+                console.error('Error:', error);
+                if (resultContainer) {
+                    resultContainer.innerHTML = `<p class="error">✨ Oh nein, ein Glitzerwölkchen hat sich verirrt! Bitte versuche es erneut. ✨</p>`;
+                }
+            } finally {
+                clearInterval(loadingInterval);
+            }
+        });
+    }
 });
+
+document.addEventListener('click', (e) => {
+    for (let i = 0; i < 8; i++) {
+        createHeart(e.clientX, e.clientY);
+    }
+});
+
+function createHeart(x, y) {
+    const heart = document.createElement('div');
+    heart.className = 'heart-particle';
+    heart.innerHTML = '💖';
+    heart.style.left = x + 'px';
+    heart.style.top = y + 'px';
+    heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+    
+    // Random movement in all directions
+    const angle = Math.random() * Math.PI * 2;
+    const distance = Math.random() * 100 + 50;
+    const tx = Math.cos(angle) * distance;
+    const ty = Math.sin(angle) * distance;
+    const rotation = Math.random() * 360;
+    
+    heart.style.setProperty('--tx', `${tx}px`);
+    heart.style.setProperty('--ty', `${ty}px`);
+    heart.style.setProperty('--rotation', `${rotation}deg`);
+    
+    document.body.appendChild(heart);
+    
+    heart.addEventListener('animationend', () => {
+        heart.remove();
+    });
+}
 
 function showLoadingIndicator(container) {
     const dots = ['', '.', '..', '...'];
@@ -85,15 +175,33 @@ async function fetchAPIResponse(dataURL) {
             messages: [
                 {
                     role: 'system',
-                    content: `Du bist ein Generator für kitschige Kalendersprüche. Befolge diese Regeln:
+                    content: `Du bist ein Generator für ultra-kitschige Kalendersprüche. Befolge diese Regeln:
                         1. Zunächst identifiziere die wichtigsten Elemente im Bild
                         2. Wenn das Bild unklar oder abstrakt ist, generiere ein zufälliges inspirierendes Zitat
                         3. Formatiere deine Antwort immer als JSON-Objekt: {quote: string, attribution: string}
                         4. Bei erkennbaren Bildern: Beziehe das Zitat auf das, was du siehst
                         5. Bei unklaren Bildern: Nutze universelle Themen wie Träume, Reisen, Kreativität oder Mysterien
                         6. Halte die Zitate kurz und prägnant (max. 2 Sätze)
-                        7. Füge Emojis hinzu, wenn sie zur Stimmung passen
-                        8. Erfinde kreative Quellen wie "Bergwanderer Weisheiten" oder "Tägliche Lebensfreude"`
+                        7. Füge mindestens 2-3 passende Emojis pro Zitat hinzu
+                        8. Erfinde kreative, übertrieben poetische Quellen wie:
+                           - "Flüsternde Herzensweisheiten"
+                           - "Glitzernde Seelenfunken"
+                           - "Regenbogenzauber Almanach"
+                           - "Einhorn Philosophien"
+                        9. Verwende überschwängliche Adjektive wie:
+                           - funkelnd, glitzernd, strahlend
+                           - zauberhaft, magisch, verzaubernd
+                           - himmlisch, engelgleich, göttlich
+                        10. Füge metaphorische Elemente ein wie:
+                            - Sternenlicht, Mondschein
+                            - Blütenblätter, Schmetterlinge
+                            - Regenbogen, Goldregen
+                        11. Benutze einen schwärmerischen, gefühlvollen Ton
+                        12. Baue mindestens eine der folgenden Phrasen ein:
+                            - "In deinem Herzen"
+                            - "Deine Seele"
+                            - "Magischer Moment"
+                            - "Zauber des Lebens"`
                 },
                 {
                     role: 'user',
@@ -209,4 +317,22 @@ async function fileToBase64(file) {
 
 	// Encode binary string to base64
 	return btoa(binaryString);
+}
+
+/**
+ * Displays the result in the result container.
+ * @param {Object} parsedQuote - The parsed quote object.
+ * @param {string} parsedQuote.quote - The quote text.
+ * @param {string} parsedQuote.attribution - The quote attribution.
+ */
+function displayResult({ quote, attribution }) {
+    const resultContainer = document.getElementById('result');
+    if (resultContainer) {
+        resultContainer.innerHTML = `
+            <div class="quote-container">
+                <p class="quote">"${quote}"</p>
+                <p class="attribution">- ${attribution}</p>
+            </div>
+        `;
+    }
 }
