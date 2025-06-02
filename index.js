@@ -61,6 +61,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     `;
                 }
+
+                // Nach dem Bildupload oder Generieren eines Spruchs:
+                document.querySelector('.content-container').classList.add('active');
             } catch (error) {
                 console.error('Error:', error);
                 if (resultContainer) {

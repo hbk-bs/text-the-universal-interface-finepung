@@ -9,24 +9,28 @@
 <body>
     <main>
         <h1>✨ Dein sprudelnder Sprüche-Brunnen ✨</h1>
-        <div class="intro-container">
-            <p class="intro-text">
-                ✨ Willkommen, holdes Wesen, an meinem sprudelnden Quell der Verzückung!✨
-            </p>
-            <p>
-                Sende mir dein anmutigstes Bild und mein Herz überflutet es mit einem Spruch, so süß wie Honigtau und so strahlend wie ein Regenbogen nach dem innigsten Sommerregen! Jede Silbe ein zarter Schmetterlingskuss für deine Seele, jede Zeile ein funkelndes Juwel der Weisheit! ✨💖🌸 🌟
-            </p>
-        </div>
         <div class="content-wrapper">
-            <div class="button-container">
-                <form>
-                    <input type="file" name="image">
-                    <button type="submit">Anmutiges Bild hochladen</button>
-                </form>
-                <button id="random-quote-btn" class="random-button">✨ Zufälligen Spruch generieren ✨</button>
+            <div class="intro-container">
+                <p class="intro-text">
+                    ✨ Willkommen, holdes Wesen, an meinem sprudelnden Quell der Verzückung!✨
+                </p>
+                <p>
+                    Sende mir dein anmutigstes Bild und mein Herz überflutet es mit einem Spruch, so süß wie Honigtau und so strahlend wie ein Regenbogen nach dem innigsten Sommerregen! Jede Silbe ein zarter Schmetterlingskuss für deine Seele, jede Zeile ein funkelndes Juwel der Weisheit! ✨💖🌸 🌟
+                </p>
             </div>
-            <div id="image-container"></div>
-            <div id="result"></div>
+            <div class="right-content">
+                <div class="button-container">
+                    <form>
+                        <input type="file" name="image">
+                        <button type="submit">Anmutiges Bild hochladen</button>
+                    </form>
+                    <button id="random-quote-btn" class="random-button">✨ Zufälligen Spruch generieren ✨</button>
+                </div>
+                <div class="content-container">
+                    <div id="image-container"></div>
+                    <div id="result"></div>
+                </div>
+            </div>
         </div>
         <script src="index.js"></script>
     </main>

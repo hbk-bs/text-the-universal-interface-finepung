@@ -47,12 +47,18 @@ body {
 
 main {
     width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
     padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-    min-height: 100vh; /* Mindesthöhe statt fixer Höhe */
+}
+
+.content-wrapper {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 4rem;
+    align-items: start;
+    padding: 0;
 }
 
 img {
@@ -86,20 +92,65 @@ h1 {
 }
 
 .content-wrapper {
-    max-width: 600px;
     width: 100%;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 400px 1fr; /* Reduced left column width */
+    gap: 4rem;
+    align-items: start;
+    padding: 0;
 }
 
+.intro-container {
+    grid-column: 1;
+    position: sticky;
+    top: 2rem;
+    width: 350px;
+    padding: 2.5rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(255, 105, 180, 0.15);
+}
+
+.right-content {
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    margin-top: 0; /* Align with top of intro container */
+}
+
+.button-container,
+#image-container,
 #result {
     width: 100%;
-    max-width: 600px;
-    margin: 2rem auto;
-    padding: 1.5rem;
-    text-align: center;
+    background: white;
+    border-radius: 15px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 32px rgba(255, 105, 180, 0.15);
+    margin-top: 0; /* Remove any top margin */
+}
+
+.quote-container {
+    margin-top: 0;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .content-wrapper {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .intro-container,
+    .right-content {
+        grid-column: 1;
+    }
+    
+    .intro-container {
+        position: relative;
+        top: 0;
+    }
 }
 
 .quote-container {
@@ -232,6 +283,13 @@ input[type="file"]:hover {
 }
 
 #image-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin: 1rem 0;
+}
+
+#image-container img {
     border-radius: 30px;
     border: 5px solid #ffd1dc;
     box-shadow: 
@@ -246,10 +304,13 @@ input[type="file"]:hover {
 }
 
 .intro-container {
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: center;
-    padding: 0 1rem;
+    grid-column: 1; /* Explicitly set to left column */
+    max-width: 100%;
+    text-align: left;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(255, 105, 180, 0.15);
 }
 
 .intro-text {
@@ -258,12 +319,12 @@ input[type="file"]:hover {
 }
 
 .button-container {
+    grid-column: 2;
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 1rem;
     align-items: center;
-    margin-bottom: 2rem;
 }
 
 /* Heart Explosion Animation */
@@ -290,4 +351,32 @@ input[type="file"]:hover {
     position: fixed;
     pointer-events: none;
     animation: heartPop 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; /* Changed from 1.2s to 2s */
+}
+
+.content-container {
+    width: 100%;
+    background: white;
+    border-radius: 15px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 32px rgba(255, 105, 180, 0.15);
+    display: none; /* Initially hidden */
+}
+
+.content-container.active {
+    display: block; /* Show when content is present */
+}
+
+#image-container,
+#result {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+}
+
+/* Remove the empty state hiding since we're handling it at the container level */
+#image-container:empty,
+#result:empty {
+    display: block;
 }
