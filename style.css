@@ -20,7 +20,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    background: linear-gradient(135deg, #ffd6e7 0%, #ffefff 50%, #e5f0ff 100%);
+    background: linear-gradient(135deg, #ffd6e7 0%, #ffefff 50%, #fff0f5 100%);
     background-size: 400% 400%; /* Neuer Wert für die Größe des Verlaufs */
     color: #ff69b4;
     line-height: 1.8;
@@ -46,19 +46,20 @@ body {
 }
 
 main {
-    width: 100%;
-    max-width: 1400px;
+    width: 95%;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
 }
 
 .content-wrapper {
-    width: 100%;
+    width: 90%;
     display: grid;
-    grid-template-columns: 350px 1fr;
-    gap: 4rem;
+    grid-template-columns: 400px 1fr; /* Increased from 350px */
+    gap: 3rem;
     align-items: start;
     padding: 0;
+    margin: 0 auto;
 }
 
 img {
@@ -78,18 +79,27 @@ h6 {
 }
 
 h1 {
-    font-size: 3em;
-    color: #ff69b4;
-    text-align: center;
-    margin: 2rem auto;
-    width: 100%;
     font-family: "Brush Script MT", cursive;
-    text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.3);
-    max-width: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-size: 3.5em;
+    color: #ff69b4;
+    text-shadow: 
+        3px 3px 6px rgba(255, 105, 180, 0.4),
+        -2px -2px 4px rgba(255, 255, 255, 0.8);
+    margin: 2rem auto;
+    position: relative;
+    text-align: center;  /* Added this line */
+    width: 100%;        /* Added this line */
 }
+
+h1::before, h1::after {
+    content: '✨';
+    position: absolute;
+    font-size: 0.8em;
+    animation: twinkle 2s ease-in-out infinite;
+}
+
+h1::before { left: -40px; top: 0; }
+h1::after { right: -40px; top: 0; }
 
 .content-wrapper {
     width: 100%;
@@ -104,69 +114,95 @@ h1 {
     grid-column: 1;
     position: sticky;
     top: 2rem;
-    width: 350px;
-    padding: 2.5rem;
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 8px 32px rgba(255, 105, 180, 0.15);
+    width: 380px; /* Increased from 300px */
+    padding: 2rem;
+    border: 4px solid transparent;
+    border-image: linear-gradient(45deg, #ff69b4, #ffd1dc, #ffb6c1, #ff69b4) 1;
+    border-radius: 35px;
+    box-shadow: 
+        0 15px 35px rgba(255, 192, 203, 0.5),
+        0 0 20px rgba(255, 255, 255, 0.8);
+    position: relative;
 }
 
-.right-content {
-    grid-column: 2;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    width: 100%;
-    margin-top: 0; /* Align with top of intro container */
+.intro-container::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: linear-gradient(45deg, #ff69b4, #ffd1dc, #ffb6c1, #ff69b4);
+    border-radius: 40px;
+    z-index: -1;
+    opacity: 0.3;
 }
 
+/* Remove background from button container */
 .button-container,
 #image-container,
 #result {
-    width: 100%;
-    background: white;
+    width: 90%; /* Reduced from 95% */
     border-radius: 15px;
-    padding: 2.5rem;
+    padding: 1.5rem; /* Reduced from 2rem */
     box-shadow: 0 8px 32px rgba(255, 105, 180, 0.15);
-    margin-top: 0; /* Remove any top margin */
-}
-
-.quote-container {
-    margin-top: 0;
-    width: 100%;
-}
-
-@media (max-width: 768px) {
-    .content-wrapper {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-    
-    .intro-container,
-    .right-content {
-        grid-column: 1;
-    }
-    
-    .intro-container {
-        position: relative;
-        top: 0;
-    }
+    margin: 0 auto;
 }
 
 .quote-container {
     margin-top: 20px;
     padding: 2.5rem;
-    background: rgba(255, 255, 255, 0.95);
+    border: 3px solid transparent;
+    border-image: 
+        linear-gradient(
+            to right,
+            #ff69b4 0%,
+            #ffd1dc 25%,
+            #ffb6c1 50%,
+            #ffd1dc 75%,
+            #ff69b4 100%
+        ) 1;
     border-radius: 35px;
     box-shadow: 
         0 10px 30px rgba(255, 192, 203, 0.4),
-        0 0 20px rgba(255, 255, 255, 0.8),
-        inset 0 0 15px rgba(255, 182, 193, 0.3);
+        0 0 20px rgba(255, 255, 255, 0.8);
     max-width: 700px;
     margin: 2rem auto;
-    border: 3px solid #ffd1dc;
-    transform: translateY(0);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    animation: borderShimmer 3s linear infinite;
+}
+
+@keyframes borderShimmer {
+    0% { border-image-source: linear-gradient(
+        to right,
+        #ff69b4 0%,
+        #ffd1dc 25%,
+        #ffb6c1 50%,
+        #ffd1dc 75%,
+        #ff69b4 100%
+    ); }
+    50% { border-image-source: linear-gradient(
+        to right,
+        #ffd1dc 0%,
+        #ffb6c1 25%,
+        #ff69b4 50%,
+        #ffb6c1 75%,
+        #ffd1dc 100%
+    ); }
+    100% { border-image-source: linear-gradient(
+        to right,
+        #ff69b4 0%,
+        #ffd1dc 25%,
+        #ffb6c1 50%,
+        #ffd1dc 75%,
+        #ff69b4 100%
+    ); }
+}
+
+/* Add text shadow to improve readability */
+.quote, .intro-text {
+    text-shadow: 
+        2px 2px 4px rgba(255, 255, 255, 0.8),
+        -1px -1px 4px rgba(255, 255, 255, 0.8);
 }
 
 .quote-container::before {
@@ -206,80 +242,159 @@ h1 {
 
 .quote {
     font-family: "Comic Sans MS", cursive;
-    font-size: 1.8em;
-    line-height: 1.6;
+    font-size: 1.3em; /* Reduced from 1.5em */
+    line-height: 1.4;
     color: #ff69b4;
     text-align: center;
-    margin-bottom: 1.5rem;
-    padding: 0 1rem;
+    margin-bottom: 1rem;
+    padding: 0 0.8rem;
+    position: relative;
 }
 
 .quote::before,
 .quote::after {
-    content: '"';
-    font-size: 3em;
-    color: #3498db;
+    content: '🦋';
     position: absolute;
-    opacity: 0.2;
+    font-size: 1.5em;
+    animation: flutter 4s ease-in-out infinite;
 }
 
 .quote::before {
-    left: -1rem;
-    top: -1rem;
+    top: -25px;
+    left: 0;
+    animation: flutter 4s ease-in-out infinite;
 }
 
 .quote::after {
-    right: -1rem;
-    bottom: -2rem;
+    bottom: -25px;
+    right: 0;
+    animation: flutter 4s ease-in-out infinite reverse;
 }
 
 .attribution {
     font-family: "Comic Sans MS", cursive;
-    font-size: 1.3em;
+    font-size: 1.1em; /* Reduced from 1.3em */
     color: #ff69b4;
     font-style: italic;
     text-align: right;
-    margin-top: 1rem;
+    margin-top: 0.8rem;
     text-shadow: 1px 1px 3px rgba(255, 105, 180, 0.3);
+    position: relative;
+}
+
+.attribution::after {
+    content: '✨';
+    position: absolute;
+    right: -25px;
+    top: 0;
+    font-size: 1.2em;
+    animation: twinkle 2s ease-in-out infinite;
 }
 
 form {
-    max-width: 600px;
-    width: 100%;
+    max-width: 500px; /* Reduced from 600px */
+    width: 90%;
     margin: 0 auto;
     display: flex;
-    gap: 1rem;
+    gap: 0.8rem; /* Reduced from 1rem */
     align-items: center;
     justify-content: center;
 }
 
 button, .random-button {
     background: linear-gradient(45deg, #ff69b4, #ffb6c1, #ffd1dc);
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9em;
     color: white;
-    border: none;
-    padding: 0.8rem 2rem;
+    position: relative;
+    border: 3px solid #ffd1dc;
     border-radius: 50px;
-    cursor: pointer;
-    font-family: "Comic Sans MS", cursive;
-    font-size: 1em;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 
+        0 8px 16px rgba(255, 192, 203, 0.4),
+        0 0 12px rgba(255, 255, 255, 0.8);
+}
+
+button::after, .random-button::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, #ff69b4, #ffd1dc, #ffb6c1, #ff1493);
+    border-radius: 50px;
+    z-index: -1;
+}
+
+@keyframes borderShimmer {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+button:hover, .random-button:hover {
+    transform: translateY(-3px) rotate(1deg);
+    box-shadow: 
+        0 15px 30px rgba(255, 192, 203, 0.6),
+        0 0 20px rgba(255, 255, 255, 0.9);
+}
+
+button::before, .random-button::before {
+    content: '🎀';
+    position: absolute;
+    top: -12px; /* Reduced from -15px */
+    left: 8px; /* Reduced from 10px */
+    font-size: 1em; /* Reduced from 1.2em */
+    animation: float 3s ease-in-out infinite;
 }
 
 input[type="file"] {
-    padding: 1.2rem;
-    border: 4px dashed #ffb6c1;
-    border-radius: 25px;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.9);
+    position: relative;
+    padding: 1rem 1.5rem;
+    font-size: 0.9em;
+    color: #ff69b4;
+    background: linear-gradient(45deg, rgba(255, 182, 193, 0.2), rgba(255, 240, 245, 0.4));
+    border: 3px solid #ffd1dc;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 
+        0 8px 16px rgba(255, 192, 203, 0.3),
+        0 0 12px rgba(255, 255, 255, 0.8);
     transition: all 0.3s ease;
 }
 
+input[type="file"]::before {
+    content: '📸';
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2em;
+    animation: float 3s ease-in-out infinite;
+}
+
 input[type="file"]:hover {
+    transform: translateY(-2px);
     border-color: #ff69b4;
-    background: rgba(255, 255, 255, 0.95);
-    transform: scale(1.02);
+    box-shadow: 
+        0 12px 20px rgba(255, 192, 203, 0.4),
+        0 0 15px rgba(255, 255, 255, 0.9);
+}
+
+/* Hide the default "Choose File" text */
+input[type="file"]::-webkit-file-upload-button {
+    visibility: hidden;
+    width: 0;
+}
+
+input[type="file"]::file-selector-button {
+    visibility: hidden;
+    width: 0;
+}
+
+/* Add custom text */
+input[type="file"]::after {
+
+    margin-left: 25px;
 }
 
 #image-container img {
@@ -308,7 +423,6 @@ input[type="file"]:hover {
     max-width: 100%;
     text-align: left;
     padding: 2rem;
-    background: rgba(255, 255, 255, 0.95);
     border-radius: 20px;
     box-shadow: 0 8px 32px rgba(255, 105, 180, 0.15);
 }
@@ -355,28 +469,99 @@ input[type="file"]:hover {
 
 .content-container {
     width: 100%;
-    background: white;
-    border-radius: 15px;
-    padding: 2.5rem;
-    box-shadow: 0 8px 32px rgba(255, 105, 180, 0.15);
-    display: none; /* Initially hidden */
+    padding: 3rem;
+    gap: 4rem;
+    display: none;
+    position: relative;
+    border: 4px double #ffd1dc;
+    border-image: repeating-linear-gradient(
+        45deg,
+        #ff69b4,
+        #ff69b4 10px,
+        #ffd1dc 10px,
+        #ffd1dc 20px
+    ) 2;
+}
+
+.content-container::before,
+.content-container::after {
+    content: '👼';
+    position: absolute;
+    font-size: 2.5em;
+    animation: float 3s ease-in-out infinite;
+}
+
+.content-container::before {
+    top: -20px;
+    left: 20px;
+}
+
+.content-container::after {
+    top: -20px;
+    right: 20px;
+    transform: scaleX(-1);
 }
 
 .content-container.active {
-    display: block; /* Show when content is present */
+    display: grid;
+    grid-template-columns: 1fr 350px; /* Reduced from 400px */
+    gap: 3rem;
+    align-items: start; /* Changed from center to start */
 }
 
-#image-container,
-#result {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    background: none;
-    box-shadow: none;
+.content-container img {
+    border-radius: 40px;
+    box-shadow: 
+        0 10px 30px rgba(255, 192, 203, 0.6),
+        0 0 20px rgba(255, 255, 255, 0.8);
+    transform: rotate(-2deg);
 }
 
-/* Remove the empty state hiding since we're handling it at the container level */
-#image-container:empty,
-#result:empty {
+.quote {
+    font-size: 1.2em; /* Reduced from 1.5em */
+    line-height: 1.6;
+    margin: 2rem 0;
+    position: relative;
+    padding: 2rem 1rem; /* Added padding for decorative elements */
+}
+
+.quote::before {
+    top: -15px; /* Adjusted from -25px */
+    left: 10px;
+}
+
+.quote::after {
+    bottom: -15px; /* Adjusted from -25px */
+    right: 10px;
+}
+
+.attribution {
+    margin-top: 1.5rem;
+    padding-right: 2rem; /* Added space for the sparkle */
+}
+
+/* Loading Animation */
+.loading {
+    display: none;
+    text-align: center;
+    margin: 2rem auto;
+    font-size: 1.5em;
+    color: #ff69b4;
+    position: relative;
+}
+
+.loading::after {
+    content: '🌸';
+    display: inline-block;
+    animation: loadingSpin 2s linear infinite;
+    margin-left: 10px;
+}
+
+.loading.active {
     display: block;
+}
+
+@keyframes loadingSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

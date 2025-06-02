@@ -26,7 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const imageContainer = document.getElementById('image-container');
 
             // Show loading state
-            let loadingInterval = showLoadingIndicator(resultContainer);
+            const loading = document.querySelector('.loading');
+            loading?.classList.add('active');
 
             try {
                 const formData = new FormData(form);
@@ -63,14 +64,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 // Nach dem Bildupload oder Generieren eines Spruchs:
-                document.querySelector('.content-container').classList.add('active');
+                const contentContainer = document.querySelector('.content-container');
+                if (contentContainer) {
+                    contentContainer.innerHTML = `
+                        <img src="${dataURL}" alt="uploaded image" />
+                        <div>
+                            <p class="quote">"${parsedQuote.quote}"</p>
+                            <p class="attribution">- ${parsedQuote.attribution}</p>
+                        </div>
+                    `;
+                    contentContainer.classList.add('active');
+                }
             } catch (error) {
                 console.error('Error:', error);
                 if (resultContainer) {
                     resultContainer.innerHTML = `<p>Error: ${error.message}</p>`;
                 }
             } finally {
-                clearInterval(loadingInterval);
+                // Hide loading when done
+                loading?.classList.remove('active');
             }
         });
     }
@@ -329,13 +341,18 @@ async function fileToBase64(file) {
  * @param {string} parsedQuote.attribution - The quote attribution.
  */
 function displayResult({ quote, attribution }) {
+    const contentContainer = document.querySelector('.content-container');
+    const imageContainer = document.getElementById('image-container');
     const resultContainer = document.getElementById('result');
-    if (resultContainer) {
+    
+    if (imageContainer && resultContainer) {
+        imageContainer.innerHTML = imageContainer.innerHTML; // Keep existing image
         resultContainer.innerHTML = `
             <div class="quote-container">
                 <p class="quote">"${quote}"</p>
                 <p class="attribution">- ${attribution}</p>
             </div>
         `;
+        contentContainer?.classList.add('active');
     }
 }
