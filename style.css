@@ -1,3 +1,11 @@
+/* Update all pink/red color values to darker shades */
+:root {
+    --dark-rose: #cc3366;      /* Main dark rose color */
+    --medium-rose: #d65d82;    /* Medium rose for gradients */
+    --light-rose: #e07a99;     /* Light rose for gradients */
+    --rose-shadow: rgba(204, 51, 102, 0.5); /* Shadow color */
+}
+
 *,
 *::before,
 *::after {
@@ -20,9 +28,9 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    background: linear-gradient(135deg, #ffd6e7 0%, #ffefff 50%, #fff0f5 100%);
+    background: linear-gradient(135deg, #ffccd9 0%, #ffefff 50%, #ffe6ee 100%);
     background-size: 400% 400%; /* Neuer Wert für die Größe des Verlaufs */
-    color: #ff69b4;
+    color: var(--dark-rose);
     line-height: 1.8;
     animation: backgroundShimmer 15s ease infinite;
     overflow-y: auto;
@@ -50,7 +58,7 @@ main {
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
-    margin-top: 2rem; /* Changed from 180px */
+    margin-top: 1rem; /* Reduced from 2rem to match new spacing */
     margin-bottom: 220px; /* Added to prevent content from being hidden behind the image */
 }
 
@@ -115,14 +123,15 @@ h1::after { right: -40px; top: 0; }
 .intro-container {
     grid-column: 1;
     position: sticky;
-    top: 2rem;
+    top: 1rem; /* Reduced from 2rem to move it higher */
+    margin-top: -1rem; /* Added negative margin to pull it up */
     width: 380px; /* Increased from 300px */
     padding: 2rem;
     border: 4px solid transparent;
-    border-image: linear-gradient(45deg, #a6d5ff, #c9e7ff, #e6f3ff, #a6d5ff) 1;
+    border-image: linear-gradient(45deg, var(--dark-rose), var(--medium-rose), var(--light-rose), var(--dark-rose)) 1;
     border-radius: 35px;
     box-shadow: 
-        0 15px 35px rgba(166, 213, 255, 0.5),
+        0 15px 35px var(--rose-shadow),
         0 0 20px rgba(255, 255, 255, 0.8);
     position: relative;
 }
@@ -144,11 +153,37 @@ h1::after { right: -40px; top: 0; }
 .button-container,
 #image-container,
 #result {
-    width: 90%; /* Reduced from 95% */
+    width: 80%; /* Reduced from 90% */
     border-radius: 15px;
-    padding: 1.5rem; /* Reduced from 2rem */
+    padding: 1.2rem; /* Reduced from 1.5rem */
     box-shadow: 0 8px 32px rgba(255, 105, 180, 0.15);
     margin: 0 auto;
+}
+
+#image-container, #result {
+    width: 80%;
+    border-radius: 15px;
+    padding: 1.2rem;
+    background: linear-gradient(45deg, 
+        rgba(255, 182, 193, 0.6),  /* Increased from 0.2 */
+        rgba(255, 240, 245, 0.7),  /* Increased from 0.3 */
+        rgba(255, 182, 193, 0.6)   /* Increased from 0.2 */
+    );
+    box-shadow: 
+        0 8px 32px rgba(255, 105, 180, 0.15),
+        inset 0 0 20px rgba(255, 255, 255, 0.8);
+    margin: 0 auto;
+    border: 3px solid var(--dark-rose);
+}
+
+#image-container:hover, #result:hover {
+    background: linear-gradient(45deg, 
+        rgba(255, 182, 193, 0.7),  /* Increased from 0.3 */
+        rgba(255, 240, 245, 0.8),  /* Increased from 0.4 */
+        rgba(255, 182, 193, 0.7)   /* Increased from 0.3 */
+    );
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
 }
 
 .quote-container {
@@ -158,11 +193,11 @@ h1::after { right: -40px; top: 0; }
     border-image: 
         linear-gradient(
             to right,
-            #a6d5ff 0%,
-            #c9e7ff 25%,
-            #e6f3ff 50%,
-            #c9e7ff 75%,
-            #a6d5ff 100%
+            var(--dark-rose) 0%,
+            var(--medium-rose) 25%,
+            var(--light-rose) 50%,
+            var(--medium-rose) 75%,
+            var(--dark-rose) 100%
         ) 1;
     border-radius: 35px;
     box-shadow: 
@@ -304,12 +339,12 @@ form {
 }
 
 button, .random-button {
-    background: linear-gradient(45deg, #ff69b4, #ffb6c1, #ffd1dc);
+    background: linear-gradient(45deg, var(--dark-rose), var(--medium-rose), var(--light-rose));
     padding: 0.6rem 1.5rem;
     font-size: 0.9em;
     color: white;
     position: relative;
-    border: 3px solid #a6d5ff;
+    border: 3px solid var(--dark-rose);
     border-radius: 50px;
     box-shadow: 
         0 8px 16px rgba(255, 192, 203, 0.4),
@@ -353,9 +388,9 @@ input[type="file"] {
     position: relative;
     padding: 1rem 1.5rem;
     font-size: 0.9em;
-    color: #ff69b4;
+    color: var(--dark-rose);
     background: linear-gradient(45deg, rgba(255, 182, 193, 0.2), rgba(255, 240, 245, 0.4));
-    border: 3px solid #a6d5ff;
+    border: 3px solid var(--dark-rose);
     border-radius: 50px;
     cursor: pointer;
     box-shadow: 
@@ -400,24 +435,17 @@ input[type="file"]::after {
 }
 
 #image-container img {
+    max-width: 200px; /* Added max-width to control image size */
     width: 100%;
     height: auto;
-    border-radius: 10px;
-    margin: 1rem 0;
-}
-
-#image-container img {
     border-radius: 30px;
-    border: 5px solid #a6d5ff;
+    border: 5px solid var(--dark-rose);
     box-shadow: 
         0 10px 25px rgba(255, 192, 203, 0.4),
         0 0 15px rgba(255, 255, 255, 0.8);
-    margin: 1.5rem 0;
+    margin: 1.2rem auto; /* Changed from 1.5rem 0 and centered */
     transition: all 0.3s ease;
-}
-
-#image-container img:hover {
-    transform: scale(1.05);
+    display: block; /* Ensures centering works */
 }
 
 .intro-container {
@@ -475,13 +503,13 @@ input[type="file"]::after {
     gap: 4rem;
     display: none;
     position: relative;
-    border: 4px double #a6d5ff;
+    border: 4px double var(--dark-rose);
     border-image: repeating-linear-gradient(
         45deg,
-        #a6d5ff,
-        #a6d5ff 10px,
-        #c9e7ff 10px,
-        #c9e7ff 20px
+        var(--dark-rose),
+        var(--dark-rose) 10px,
+        var(--medium-rose) 10px,
+        var(--medium-rose) 20px
     ) 2;
 }
 
@@ -546,10 +574,13 @@ input[type="file"]::after {
 .loading {
     display: none;
     text-align: center;
-    margin: 2rem auto;
-    font-size: 1.5em;
-    color: #ff69b4;
+    margin: 0 auto 2rem auto; /* Changed from 2rem auto to push it higher */
     position: relative;
+    top: -1rem;
+    background: linear-gradient(45deg, rgba(255, 182, 193, 0.3), rgba(255, 240, 245, 0.4));
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    box-shadow: 0 4px 12px rgba(255, 192, 203, 0.2);
 }
 
 .loading::after {
