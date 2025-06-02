@@ -50,6 +50,8 @@ main {
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
+    margin-top: 2rem; /* Changed from 180px */
+    margin-bottom: 220px; /* Added to prevent content from being hidden behind the image */
 }
 
 .content-wrapper {
@@ -117,10 +119,10 @@ h1::after { right: -40px; top: 0; }
     width: 380px; /* Increased from 300px */
     padding: 2rem;
     border: 4px solid transparent;
-    border-image: linear-gradient(45deg, #ff69b4, #ffd1dc, #ffb6c1, #ff69b4) 1;
+    border-image: linear-gradient(45deg, #a6d5ff, #c9e7ff, #e6f3ff, #a6d5ff) 1;
     border-radius: 35px;
     box-shadow: 
-        0 15px 35px rgba(255, 192, 203, 0.5),
+        0 15px 35px rgba(166, 213, 255, 0.5),
         0 0 20px rgba(255, 255, 255, 0.8);
     position: relative;
 }
@@ -156,11 +158,11 @@ h1::after { right: -40px; top: 0; }
     border-image: 
         linear-gradient(
             to right,
-            #ff69b4 0%,
-            #ffd1dc 25%,
-            #ffb6c1 50%,
-            #ffd1dc 75%,
-            #ff69b4 100%
+            #a6d5ff 0%,
+            #c9e7ff 25%,
+            #e6f3ff 50%,
+            #c9e7ff 75%,
+            #a6d5ff 100%
         ) 1;
     border-radius: 35px;
     box-shadow: 
@@ -307,7 +309,7 @@ button, .random-button {
     font-size: 0.9em;
     color: white;
     position: relative;
-    border: 3px solid #ffd1dc;
+    border: 3px solid #a6d5ff;
     border-radius: 50px;
     box-shadow: 
         0 8px 16px rgba(255, 192, 203, 0.4),
@@ -353,7 +355,7 @@ input[type="file"] {
     font-size: 0.9em;
     color: #ff69b4;
     background: linear-gradient(45deg, rgba(255, 182, 193, 0.2), rgba(255, 240, 245, 0.4));
-    border: 3px solid #ffd1dc;
+    border: 3px solid #a6d5ff;
     border-radius: 50px;
     cursor: pointer;
     box-shadow: 
@@ -406,7 +408,7 @@ input[type="file"]::after {
 
 #image-container img {
     border-radius: 30px;
-    border: 5px solid #ffd1dc;
+    border: 5px solid #a6d5ff;
     box-shadow: 
         0 10px 25px rgba(255, 192, 203, 0.4),
         0 0 15px rgba(255, 255, 255, 0.8);
@@ -473,13 +475,13 @@ input[type="file"]::after {
     gap: 4rem;
     display: none;
     position: relative;
-    border: 4px double #ffd1dc;
+    border: 4px double #a6d5ff;
     border-image: repeating-linear-gradient(
         45deg,
-        #ff69b4,
-        #ff69b4 10px,
-        #ffd1dc 10px,
-        #ffd1dc 20px
+        #a6d5ff,
+        #a6d5ff 10px,
+        #c9e7ff 10px,
+        #c9e7ff 20px
     ) 2;
 }
 
@@ -564,4 +566,20 @@ input[type="file"]::after {
 @keyframes loadingSpin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    bottom: 0; /* Changed from top: 0 to bottom: 0 */
+    left: 0;
+    width: 100%;
+    height: 200px;
+    background-image: url('https://hbk-bs.github.io/text-the-universal-interface-finepung/rosen.png');
+    background-repeat: repeat-x;
+    background-position: bottom center; /* Changed from top center to bottom center */
+    background-size: contain;
+    z-index: -1;
+    opacity: 0.8;
+    pointer-events: none;
 }
