@@ -275,7 +275,10 @@ function parseAndValidateResponse(result) {
             throw new Error('Missing required fields in response');
         }
 
-        return parsed;
+        return {
+            quote: parsed.quote,         // not .text
+            attribution: parsed.attribution  // not .author
+        };
     } catch (error) {
         console.error('Raw response:', result.completion.choices[0].message.content);
         throw new Error('Failed to parse API response: ' + error.message);
@@ -368,32 +371,27 @@ function displayResult({ quote, attribution }) {
 }
 
 async function handleImageAndQuote() {
-    const imageResultContainer = document.querySelector('.image-result-container');
+    const resultContainer = document.querySelector('.result-container');
     const loading = document.querySelector('.loading');
     
-    // Show loading state
     loading?.classList.add('active');
     
     try {
-        // Wait for quote to load
         const response = await fetchAPIResponse('');
         const result = await response.json();
-        const quote = parseAndValidateResponse(result);
+        const { quote, attribution } = parseAndValidateResponse(result);
         
-        // Hide loading state
         loading?.classList.remove('active');
+        resultContainer?.classList.add('active');
         
-        // Show container with animation
-        imageResultContainer?.classList.add('active');
-        
-        // Update quote content
         const quoteElement = document.querySelector('.quote');
-        if (quoteElement) {
-            quoteElement.textContent = quote.text;
-        }
         const attributionElement = document.querySelector('.attribution');
+        
+        if (quoteElement) {
+            quoteElement.textContent = quote;  // Use quote directly
+        }
         if (attributionElement) {
-            attributionElement.textContent = quote.author;
+            attributionElement.textContent = attribution;  // Use attribution directly
         }
     } catch (error) {
         console.error('Error:', error);
@@ -406,3 +404,20 @@ const fileInputElement = document.querySelector('input[type="file"]');
 if (fileInputElement) {
     fileInputElement.addEventListener('change', handleImageAndQuote);
 }
+
+// In your event handlers, use:
+const mainResultContainer = document.querySelector('.result-container');
+mainResultContainer?.classList.add('active');
+
+// In your image upload handler:
+document.querySelector('.result-container')?.classList.add('active');
+
+// You have these conflicting container selectors
+const imageResultContainer = document.querySelector('.image-result-container');
+const resultDisplayContainer = document.querySelector('.result-container');
+const contentContainer = document.querySelector('.content-container');
+
+// You have multiple places trying to activate containers
+imageResultContainer?.classList.add('active');
+mainResultContainer?.classList.add('active');
+contentContainer?.classList.add('active');
