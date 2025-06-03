@@ -114,7 +114,7 @@ h1::after { right: -40px; top: 0; }
 .content-wrapper {
     width: 100%;
     display: grid;
-    grid-template-columns: 400px 1fr; /* Reduced left column width */
+    grid-template-columns: 400px 1fr;
     gap: 4rem;
     align-items: start;
     padding: 0;
@@ -187,8 +187,9 @@ h1::after { right: -40px; top: 0; }
 }
 
 .quote-container {
-    margin-top: 20px;
-    padding: 1.5rem; /* Reduced padding */
+    grid-column: 2;  /* Place in right column */
+    margin: 20px auto;
+    padding: 1.5rem;
     border: 3px solid transparent;
     border-image: 
         linear-gradient(
@@ -203,85 +204,11 @@ h1::after { right: -40px; top: 0; }
     box-shadow: 
         0 10px 30px rgba(255, 192, 203, 0.4),
         0 0 20px rgba(255, 255, 255, 0.8);
-    max-width: 100%;
-    margin: 0.5rem auto; /* Reduced margin */
-    height: auto;
+    width: 100%;
+    position: relative;
 }
 
-@keyframes borderShimmer {
-    0% { 
-        border-image-source: linear-gradient(
-            to right,
-            var(--dark-rose) 0%,
-            var(--medium-rose) 25%,
-            var(--light-rose) 50%,
-            var(--medium-rose) 75%,
-            var(--dark-rose) 100%
-        );
-    }
-    50% { 
-        border-image-source: linear-gradient(
-            to right,
-            var(--medium-rose) 0%,
-            var(--light-rose) 25%,
-            var(--dark-rose) 50%,
-            var(--light-rose) 75%,
-            var(--medium-rose) 100%
-        );
-    }
-    100% { 
-        border-image-source: linear-gradient(
-            to right,
-            var(--dark-rose) 0%,
-            var(--medium-rose) 25%,
-            var(--light-rose) 50%,
-            var(--medium-rose) 75%,
-            var(--dark-rose) 100%
-        );
-    }
-}
-
-/* Add text shadow to improve readability */
-.quote, .intro-text {
-    text-shadow: 
-        2px 2px 4px rgba(255, 255, 255, 0.8),
-        -1px -1px 4px rgba(255, 255, 255, 0.8);
-}
-
-.quote-container::before {
-    content: '🌸';
-    position: absolute;
-    top: -20px;
-    left: 20px;
-    font-size: 2.5em;
-    animation: float 3s ease-in-out infinite;
-}
-
-.quote-container::after {
-    content: '🦄';
-    position: absolute;
-    bottom: -20px;
-    right: 20px;
-    font-size: 2.5em;
-    animation: float 3s ease-in-out infinite reverse;
-}
-
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
-}
-
-.image-preview {
-    margin-bottom: 20px;
-}
-
-.image-preview img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
+/* Keep existing .quote and .attribution styles */
 
 .quote {
     font-family: "Comic Sans MS", cursive;
@@ -531,80 +458,53 @@ input[type="file"]::after {
     animation: heartPop 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; /* Changed from 1.2s to 2s */
 }
 
-.content-container {
+/* New image result container */
+.image-result-container {
+    grid-column: 2;
+    opacity: 0;
+    visibility: hidden;
     width: 100%;
-    padding: 3rem;
-    gap: 4rem;
-    display: none;
-    position: relative;
-    border: 4px double var(--dark-rose);
-    border-image: repeating-linear-gradient(
-        45deg,
-        var(--dark-rose),
-        var(--dark-rose) 10px,
-        var(--medium-rose) 10px,
-        var(--medium-rose) 20px
-    ) 2;
-}
-
-.content-container::before,
-.content-container::after {
-    content: '👼';
-    position: absolute;
-    font-size: 2.5em;
-    animation: float 3s ease-in-out infinite;
-}
-
-/* Update float animation to remove rotation */
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
-}
-
-/* Update flutter animation for quote decorations */
-@keyframes flutter {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-    100% { transform: translateY(0); }
-}
-
-.content-container.active {
-    display: grid;
-    grid-template-columns: 1fr 350px;
-    gap: 3rem;
-    align-items: start;
-    height: auto; /* Remove max-height */
-    overflow-y: visible; /* Remove scrolling */
-}
-
-.content-container img {
-    border-radius: 40px;
+    margin: 20px auto;
+    padding: 2rem;
+    border: 3px solid transparent;
+    border-image: linear-gradient(
+        to right,
+        var(--dark-rose) 0%,
+        var(--medium-rose) 25%,
+        var(--light-rose) 50%,
+        var(--medium-rose) 75%,
+        var(--dark-rose) 100%
+    ) 1;
+    border-radius: 35px;
     box-shadow: 
-        0 10px 30px rgba(255, 192, 203, 0.6),
+        0 10px 30px rgba(255, 192, 203, 0.4),
         0 0 20px rgba(255, 255, 255, 0.8);
+    position: relative;
+    transition: all 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
 }
 
-.quote {
-    font-size: 1em; /* Further reduced font size */
-    line-height: 1.3;
-    margin: 0.5rem 0; /* Reduced margin */
-    padding: 0.5rem; /* Reduced padding */
+.image-result-container.active {
+    opacity: 1;
+    visibility: visible;
+    animation: fadeIn 0.5s ease-in;
 }
 
-.quote::before {
-    top: -15px; /* Adjusted from -25px */
-    left: 10px;
-}
-
-.quote::after {
-    bottom: -15px; /* Adjusted from -25px */
-    right: 10px;
-}
-
-.attribution {
-    margin-top: 1.5rem;
-    padding-right: 2rem; /* Added space for the sparkle */
+/* Update fadeIn animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+        visibility: visible;
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible;
+    }
 }
 
 /* Loading Animation */

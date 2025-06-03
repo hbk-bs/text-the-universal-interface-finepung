@@ -129,6 +129,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    const fileInput = document.querySelector('input[type="file"]');
+    if (fileInput) {
+        fileInput.addEventListener('change', function() {
+            const imageResultContainer = document.querySelector('.image-result-container');
+            if (imageResultContainer) {
+                imageResultContainer.classList.add('active');
+            }
+        });
+    }
 });
 
 document.addEventListener('click', (e) => {
@@ -355,4 +365,44 @@ function displayResult({ quote, attribution }) {
         `;
         contentContainer?.classList.add('active');
     }
+}
+
+async function handleImageAndQuote() {
+    const imageResultContainer = document.querySelector('.image-result-container');
+    const loading = document.querySelector('.loading');
+    
+    // Show loading state
+    loading?.classList.add('active');
+    
+    try {
+        // Wait for quote to load
+        const response = await fetchAPIResponse('');
+        const result = await response.json();
+        const quote = parseAndValidateResponse(result);
+        
+        // Hide loading state
+        loading?.classList.remove('active');
+        
+        // Show container with animation
+        imageResultContainer?.classList.add('active');
+        
+        // Update quote content
+        const quoteElement = document.querySelector('.quote');
+        if (quoteElement) {
+            quoteElement.textContent = quote.text;
+        }
+        const attributionElement = document.querySelector('.attribution');
+        if (attributionElement) {
+            attributionElement.textContent = quote.author;
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        loading?.classList.remove('active');
+    }
+}
+
+// Add event listener to your file input
+const fileInputElement = document.querySelector('input[type="file"]');
+if (fileInputElement) {
+    fileInputElement.addEventListener('change', handleImageAndQuote);
 }
