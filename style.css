@@ -188,7 +188,7 @@ h1::after { right: -40px; top: 0; }
 
 .quote-container {
     margin-top: 20px;
-    padding: 2.5rem;
+    padding: 1.5rem; /* Reduced padding */
     border: 3px solid transparent;
     border-image: 
         linear-gradient(
@@ -203,36 +203,42 @@ h1::after { right: -40px; top: 0; }
     box-shadow: 
         0 10px 30px rgba(255, 192, 203, 0.4),
         0 0 20px rgba(255, 255, 255, 0.8);
-    max-width: 700px;
-    margin: 2rem auto;
-    animation: borderShimmer 3s linear infinite;
+    max-width: 100%;
+    margin: 0.5rem auto; /* Reduced margin */
+    height: auto;
 }
 
 @keyframes borderShimmer {
-    0% { border-image-source: linear-gradient(
-        to right,
-        #ff69b4 0%,
-        #ffd1dc 25%,
-        #ffb6c1 50%,
-        #ffd1dc 75%,
-        #ff69b4 100%
-    ); }
-    50% { border-image-source: linear-gradient(
-        to right,
-        #ffd1dc 0%,
-        #ffb6c1 25%,
-        #ff69b4 50%,
-        #ffb6c1 75%,
-        #ffd1dc 100%
-    ); }
-    100% { border-image-source: linear-gradient(
-        to right,
-        #ff69b4 0%,
-        #ffd1dc 25%,
-        #ffb6c1 50%,
-        #ffd1dc 75%,
-        #ff69b4 100%
-    ); }
+    0% { 
+        border-image-source: linear-gradient(
+            to right,
+            var(--dark-rose) 0%,
+            var(--medium-rose) 25%,
+            var(--light-rose) 50%,
+            var(--medium-rose) 75%,
+            var(--dark-rose) 100%
+        );
+    }
+    50% { 
+        border-image-source: linear-gradient(
+            to right,
+            var(--medium-rose) 0%,
+            var(--light-rose) 25%,
+            var(--dark-rose) 50%,
+            var(--light-rose) 75%,
+            var(--medium-rose) 100%
+        );
+    }
+    100% { 
+        border-image-source: linear-gradient(
+            to right,
+            var(--dark-rose) 0%,
+            var(--medium-rose) 25%,
+            var(--light-rose) 50%,
+            var(--medium-rose) 75%,
+            var(--dark-rose) 100%
+        );
+    }
 }
 
 /* Add text shadow to improve readability */
@@ -261,9 +267,9 @@ h1::after { right: -40px; top: 0; }
 }
 
 @keyframes float {
-    0% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-10px) rotate(5deg); }
-    100% { transform: translateY(0px) rotate(0deg); }
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
 }
 
 .image-preview {
@@ -364,8 +370,36 @@ button::after, .random-button::after {
 }
 
 @keyframes borderShimmer {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% { 
+        border-image-source: linear-gradient(
+            to right,
+            var(--dark-rose) 0%,
+            var(--medium-rose) 25%,
+            var(--light-rose) 50%,
+            var(--medium-rose) 75%,
+            var(--dark-rose) 100%
+        );
+    }
+    50% { 
+        border-image-source: linear-gradient(
+            to right,
+            var(--medium-rose) 0%,
+            var(--light-rose) 25%,
+            var(--dark-rose) 50%,
+            var(--light-rose) 75%,
+            var(--medium-rose) 100%
+        );
+    }
+    100% { 
+        border-image-source: linear-gradient(
+            to right,
+            var(--dark-rose) 0%,
+            var(--medium-rose) 25%,
+            var(--light-rose) 50%,
+            var(--medium-rose) 75%,
+            var(--dark-rose) 100%
+        );
+    }
 }
 
 button:hover, .random-button:hover {
@@ -521,22 +555,27 @@ input[type="file"]::after {
     animation: float 3s ease-in-out infinite;
 }
 
-.content-container::before {
-    top: -20px;
-    left: 20px;
+/* Update float animation to remove rotation */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
 }
 
-.content-container::after {
-    top: -20px;
-    right: 20px;
-    transform: scaleX(-1);
+/* Update flutter animation for quote decorations */
+@keyframes flutter {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0); }
 }
 
 .content-container.active {
     display: grid;
-    grid-template-columns: 1fr 350px; /* Reduced from 400px */
+    grid-template-columns: 1fr 350px;
     gap: 3rem;
-    align-items: start; /* Changed from center to start */
+    align-items: start;
+    height: auto; /* Remove max-height */
+    overflow-y: visible; /* Remove scrolling */
 }
 
 .content-container img {
@@ -544,15 +583,13 @@ input[type="file"]::after {
     box-shadow: 
         0 10px 30px rgba(255, 192, 203, 0.6),
         0 0 20px rgba(255, 255, 255, 0.8);
-    transform: rotate(-2deg);
 }
 
 .quote {
-    font-size: 1.2em; /* Reduced from 1.5em */
-    line-height: 1.6;
-    margin: 2rem 0;
-    position: relative;
-    padding: 2rem 1rem; /* Added padding for decorative elements */
+    font-size: 1em; /* Further reduced font size */
+    line-height: 1.3;
+    margin: 0.5rem 0; /* Reduced margin */
+    padding: 0.5rem; /* Reduced padding */
 }
 
 .quote::before {
@@ -574,13 +611,13 @@ input[type="file"]::after {
 .loading {
     display: none;
     text-align: center;
-    margin: 0 auto 2rem auto; /* Changed from 2rem auto to push it higher */
+    margin: -180px auto 0 auto; /* Added top margin to position below button-container */
+    grid-column: 2;
     position: relative;
-    top: -1rem;
-    background: linear-gradient(45deg, rgba(255, 182, 193, 0.3), rgba(255, 240, 245, 0.4));
+    width: 80%;
     padding: 1rem 2rem;
     border-radius: 25px;
-    box-shadow: 0 4px 12px rgba(255, 192, 203, 0.2);
+    order: 1; /* Changed from -1 to 1 to place after button-container */
 }
 
 .loading::after {
