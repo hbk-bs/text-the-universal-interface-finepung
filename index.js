@@ -552,3 +552,61 @@ function displayFriendlyMessage() {
         `;
     }
 }
+
+async function displayRandomQuote() {
+    try {
+        const response = await fetch(apiEndpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                messages: [
+                    {
+                        role: 'system',
+                        content: `Generiere einen zufälligen, ultra-kitschigen Kalenderspruch. Befolge diese Regeln:
+                            1. Formatiere als JSON: {quote: string, attribution: string}
+                            2. Nutze universelle Themen: Träume, Liebe, Magie
+                            3. Maximal 2 Sätze pro Spruch
+                            4. Füge 2-3 passende Emojis ein
+                            5. Verwende schwärmerische Wörter:
+                               - funkelnd, glitzernd, strahlend
+                               - zauberhaft, magisch, himmlisch
+                            6. Nutze poetische Metaphern:
+                               - Sternenlicht, Mondschein
+                               - Herzensmomente, Seelenzauber
+                               - Blütenträume, Glitzerstaub`
+                    }
+                ]
+            })
+        });
+
+        const result = await response.json();
+        const parsedQuote = parseAndValidateResponse(result);
+        
+        // Display the random quote
+        const resultContainer = document.querySelector('.result-container');
+        if (resultContainer) {
+            resultContainer.innerHTML = `
+                <div class="quote-container random-quote">
+                    <p class="quote">"${parsedQuote.quote}"</p>
+                    <p class="attribution">- ${generateCreativeSource()}</p>
+                </div>
+            `;
+            resultContainer.classList.add('active');
+        }
+
+    } catch (error) {
+        console.error('Error generating random quote:', error);
+        displayFriendlyMessage();
+    }
+}
+
+// Add event listener for random quote button
+const randomButton = document.getElementById('random-quote-btn');
+if (randomButton) {
+    randomButton.addEventListener('click', () => {
+        showLoadingState(true);
+        displayRandomQuote().finally(() => {
+            showLoadingState(false);
+        });
+    });
+}
