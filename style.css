@@ -420,33 +420,41 @@ input[type="file"]::after {
     box-shadow: 
         0 15px 35px var(--rose-shadow),
         0 0 20px rgba(255, 255, 255, 0.8);
+    transition: opacity 0.3s ease-in-out;
 }
 
 .result-container.active {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 300px 1fr;
     gap: 2rem;
+    align-items: center;
     animation: fadeIn 0.5s ease-in;
+    padding: 2rem;
 }
 
 #image-container {
+    grid-column: 1;
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-bottom: 1.5rem;
+    align-items: center;
+    margin-bottom: 0;
 }
 
 #image-container img {
-    max-width: 200px;
+    width: 100%;
+    max-width: 250px;
+    height: auto;
     border-radius: 30px;
     border: 5px solid var(--dark-rose);
     box-shadow: 
         0 10px 25px rgba(255, 192, 203, 0.4),
         0 0 15px rgba(255, 255, 255, 0.8);
+    object-fit: cover;
 }
 
 .quote-wrapper {
+    grid-column: 2;
     width: 100%;
     padding: 1.5rem;
     background: rgba(255, 255, 255, 0.3);
@@ -454,21 +462,50 @@ input[type="file"]::after {
     text-align: center;
 }
 
-.quote {
-    font-size: 1.3em;
-    line-height: 1.4;
-    color: var(--dark-rose);
-    margin-bottom: 1rem;
-    position: relative;
+/* Message and Image Quote Containers */
+.message-container {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 25px;
+    border: 3px solid var(--dark-rose);
+    animation: fadeIn 0.5s ease-in;
 }
 
-.attribution {
-    font-size: 1.1em;
-    color: var(--dark-rose);
-    font-style: italic;
-    text-align: right;
-    margin-top: 0.8rem;
-    text-shadow: 1px 1px 3px rgba(255, 105, 180, 0.3);
+.image-quote-container {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+    align-items: center;
+    animation: fadeIn 0.5s ease-in;
+}
+
+/* Keyframes */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .result-container.active {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    #image-container {
+        margin-bottom: 1rem;
+    }
+
+    .quote-wrapper {
+        grid-column: 1;
+    }
 }
 
 /* Heart Explosion Animation */
@@ -511,4 +548,81 @@ body::before {
     z-index: -1;
     opacity: 0.8;
     pointer-events: none;
+}
+
+.error-message {
+    background: rgba(255, 192, 203, 0.2);
+    padding: 1rem;
+    border-radius: 15px;
+    text-align: center;
+    border: 2px solid var(--dark-rose);
+    margin: 1rem 0;
+}
+
+.error-message p {
+    color: var(--dark-rose);
+    font-size: 1.1em;
+}
+
+/* Loading Animation */
+.loading {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem 3rem;
+    border-radius: 25px;
+    border: 3px solid var(--dark-rose);
+    box-shadow: 
+        0 10px 30px rgba(255, 192, 203, 0.6),
+        0 0 20px rgba(255, 255, 255, 0.9);
+    text-align: center;
+    z-index: 1000;
+    animation: floatLoading 2s ease-in-out infinite;
+}
+
+.loading.active {
+    display: block;
+}
+
+.loading::before {
+    content: '✨';
+    font-size: 2em;
+    display: block;
+    margin-bottom: 1rem;
+    animation: spin 2s linear infinite;
+}
+
+.loading-text {
+    font-size: 1.5em;
+    color: var(--dark-rose);
+    margin: 0;
+    position: relative;
+    display: inline-block;
+}
+
+.loading-text::after {
+    content: '...';
+    position: absolute;
+    right: -20px;
+    animation: ellipsis 1.5s steps(4) infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes floatLoading {
+    0%, 100% { transform: translate(-50%, -50%); }
+    50% { transform: translate(-50%, -60%); }
+}
+
+@keyframes ellipsis {
+    0% { content: ''; }
+    25% { content: '.'; }
+    50% { content: '..'; }
+    75% { content: '...'; }
 }

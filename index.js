@@ -131,11 +131,43 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const fileInput = document.querySelector('input[type="file"]');
+    const resultContainer = document.querySelector('.result-container');
+    const imageContainer = document.getElementById('image-container');
+    
+    // Modify the file input event listener
     if (fileInput) {
-        fileInput.addEventListener('change', function() {
-            const imageResultContainer = document.querySelector('.image-result-container');
-            if (imageResultContainer) {
-                imageResultContainer.classList.add('active');
+        fileInput.addEventListener('change', async (e) => {
+            if (!(e.target instanceof HTMLInputElement) || !e.target.files?.[0]) return;
+            
+            const file = e.target.files[0];
+            
+            try {
+                if (!file.type.startsWith('image/')) {
+                    throw new Error('Bitte wähle ein Bild aus 🌸');
+                }
+
+                showLoadingState(true);
+
+                // Convert image to Data URL
+                const dataURL = await fileToDataURL(file);
+                
+                // Display the new image immediately
+                displayImage(dataURL);
+
+                // Get a new quote for the new image
+                const quote = await getQuoteForImage(dataURL);
+                
+                // Display the new quote with the image
+                displayQuoteAndImage({
+                    quote: quote.quote,
+                    attribution: generateCreativeSource() // Generate new creative source
+                }, dataURL);
+
+            } catch (error) {
+                console.log('Info:', error.message);
+                displayFriendlyMessage();
+            } finally {
+                showLoadingState(false);
             }
         });
     }
@@ -370,54 +402,153 @@ function displayResult({ quote, attribution }) {
     }
 }
 
-async function handleImageAndQuote() {
-    const resultContainer = document.querySelector('.result-container');
+// Helper functions
+function showLoadingState(show) {
     const loading = document.querySelector('.loading');
-    
-    loading?.classList.add('active');
-    
-    try {
-        const response = await fetchAPIResponse('');
-        const result = await response.json();
-        const { quote, attribution } = parseAndValidateResponse(result);
-        
-        loading?.classList.remove('active');
-        resultContainer?.classList.add('active');
-        
-        const quoteElement = document.querySelector('.quote');
-        const attributionElement = document.querySelector('.attribution');
-        
-        if (quoteElement) {
-            quoteElement.textContent = quote;  // Use quote directly
+    if (loading) {
+        if (show) {
+            loading.classList.add('active');
+            // Füge zufällige magische Wörter hinzu
+            const magicWords = [
+                "✨ Streue Feenstaub",
+                "🌟 Sammle Sternenzauber",
+                "🎀 Webe Magie",
+                "💫 Mische Glitzer",
+                "🦋 Fange Traummomente",
+                "🌸 Pflücke Herzensblüten"
+            ];
+            const randomWord = magicWords[Math.floor(Math.random() * magicWords.length)];
+            const loadingText = loading.querySelector('.loading-text');
+            if (loadingText) {
+                loadingText.textContent = randomWord;
+            }
+        } else {
+            loading.classList.remove('active');
         }
-        if (attributionElement) {
-            attributionElement.textContent = attribution;  // Use attribution directly
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        loading?.classList.remove('active');
     }
 }
 
-// Add event listener to your file input
-const fileInputElement = document.querySelector('input[type="file"]');
-if (fileInputElement) {
-    fileInputElement.addEventListener('change', handleImageAndQuote);
+function displayImage(dataURL) {
+    const imageContainer = document.getElementById('image-container');
+    if (imageContainer) {
+        const img = new Image();
+        img.src = dataURL;
+        img.alt = "Dein magisches Bild ✨";
+        imageContainer.innerHTML = '';
+        imageContainer.appendChild(img);
+    }
 }
 
-// In your event handlers, use:
-const mainResultContainer = document.querySelector('.result-container');
-mainResultContainer?.classList.add('active');
+async function getQuoteForImage(dataURL) {
+    const response = await fetch(apiEndpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            messages: [
+                {
+                    role: 'system',
+                    content: `Du bist ein Generator für ultra-kitschige Kalendersprüche. Befolge diese Regeln:
+                        1. Analysiere GENAU, was auf dem Bild zu sehen ist
+                        2. Erstelle einen einzigartigen Spruch, der direkt auf die Bildelemente eingeht
+                        3. Wenn du ein Tier siehst, nutze seine Eigenschaften als Metapher
+                        4. Bei Naturbildern verwende passende Naturmetaphern
+                        5. Bei Menschen beschreibe Emotionen und Momente
+                        6. Füge mindestens 3 thematisch passende Emojis ein
+                        7. Formatiere als JSON: {
+                            "quote": "Dein bildspezifischer Spruch",
+                            "attribution": "- Eine kreative Quelle"
+                        }
+                        8. Verwende diese Elemente:
+                           - Funkelnd, glitzernd, magisch
+                           - Herzensmomente, Seelenzauber
+                           - Sternenstaub, Regenbogenlichter
+                        9. Mache jeden Spruch einzigartig!`
+                },
+                {
+                    role: 'user',
+                    content: [{
+                        type: 'image_url',
+                        image_url: { url: dataURL }
+                    }]
+                }
+            ]
+        })
+    });
 
-// In your image upload handler:
-document.querySelector('.result-container')?.classList.add('active');
+    const result = await response.json();
+    return parseQuoteResponse(result);
+}
 
-// You have these conflicting container selectors
-const imageResultContainer = document.querySelector('.image-result-container');
-const resultDisplayContainer = document.querySelector('.result-container');
-const contentContainer = document.querySelector('.content-container');
+function parseQuoteResponse(result) {
+    try {
+        const content = result.completion.choices[0].message.content
+            .replace(/```json\n?|\n?```/g, '')
+            .replace(/[\n\r\t]/g, ' ')
+            .trim();
+        
+        const parsed = JSON.parse(content);
+        
+        return {
+            quote: parsed.quote || "✨ Ein magischer Moment braucht keine Worte ✨",
+            attribution: generateCreativeSource()  // Hier die neue Funktion verwenden
+        };
+    } catch {
+        return {
+            quote: "✨ Manchmal ist Magie einfach unbeschreiblich ✨",
+            attribution: generateCreativeSource()  // Auch hier
+        };
+    }
+}
 
-// You have multiple places trying to activate containers
-imageResultContainer?.classList.add('active');
-mainResultContainer?.classList.add('active');
-contentContainer?.classList.add('active');
+function displayQuoteAndImage(quote, dataURL) {
+    const resultContainer = document.querySelector('.result-container');
+    if (resultContainer instanceof HTMLElement) {
+        // First fade out
+        Object.assign(resultContainer.style, { opacity: '0' });
+        
+        setTimeout(() => {
+            // Update content
+            resultContainer.innerHTML = `
+                <div class="image-quote-container">
+                    <div id="image-container">
+                        <img src="${dataURL}" alt="Dein magisches Bild ✨">
+                    </div>
+                    <div class="quote-container">
+                        <p class="quote">"${quote.quote}"</p>
+                        <p class="attribution">${quote.attribution}</p>
+                    </div>
+                </div>
+            `;
+            
+            // Then fade in
+            resultContainer.style.opacity = '1';
+            resultContainer.classList.add('active');
+        }, 300); // Wait for fade out
+    }
+}
+
+function generateCreativeSource() {
+    const sources = [
+        "Flüsternde Herzensweisheiten",
+        "Glitzernde Seelenfunken",
+        "Regenbogenzauber Almanach",
+        "Einhorn Philosophien",
+        "Sternenstaub Chroniken",
+        "Magische Momentsammlung",
+        "Feenstaub Manifeste",
+        "Traumfänger Weisheiten"
+    ];
+    return sources[Math.floor(Math.random() * sources.length)];
+}
+
+function displayFriendlyMessage() {
+    const resultContainer = document.querySelector('.result-container');
+    if (resultContainer) {
+        resultContainer.innerHTML = `
+            <div class="message-container">
+                <p>✨ Lass uns gemeinsam etwas Magisches erschaffen! ✨</p>
+                <p>Wähle ein schönes Bild aus 🌸</p>
+            </div>
+        `;
+    }
+}
