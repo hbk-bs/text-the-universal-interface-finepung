@@ -187,41 +187,22 @@ h1::after {
     border-radius: 15px;
     padding: 1.2rem;
     background: linear-gradient(45deg, 
-        rgba(255, 182, 193, 0.6),  /* Increased from 0.2 */
-        rgba(255, 240, 245, 0.7),  /* Increased from 0.3 */
-        rgba(255, 182, 193, 0.6)   /* Increased from 0.2 */
+        rgba(255, 182, 193, 0.6),
+        rgba(255, 240, 245, 0.7),
+        rgba(255, 182, 193, 0.6)
     );
     box-shadow: 
         0 8px 32px rgba(255, 105, 180, 0.15),
         inset 0 0 20px rgba(255, 255, 255, 0.8);
     margin: 0 auto;
-    border: 3px solid var(--dark-rose);
-}
-
-#image-container:hover, #result:hover {
-    background: linear-gradient(45deg, 
-        rgba(255, 182, 193, 0.7),  /* Increased from 0.3 */
-        rgba(255, 240, 245, 0.8),  /* Increased from 0.4 */
-        rgba(255, 182, 193, 0.7)   /* Increased from 0.3 */
-    );
-    transform: translateY(-2px);
-    transition: all 0.3s ease;
+    /* Removed the border property */
 }
 
 .quote-container {
-    grid-column: 2;  /* Place in right column */
+    grid-column: 2;
     margin: 20px auto;
     padding: 1.5rem;
-    border: 3px solid transparent;
-    border-image: 
-        linear-gradient(
-            to right,
-            var(--dark-rose) 0%,
-            var(--medium-rose) 25%,
-            var(--light-rose) 50%,
-            var(--medium-rose) 75%,
-            var(--dark-rose) 100%
-        ) 1;
+    /* Removed border and border-image properties */
     border-radius: 35px;
     box-shadow: 
         0 10px 30px rgba(255, 192, 203, 0.4),
@@ -593,7 +574,6 @@ body::before {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(255, 255, 255, 0.95);
     padding: 2rem 3rem;
     border-radius: 25px;
     border: 3px solid var(--dark-rose);
@@ -603,6 +583,8 @@ body::before {
     text-align: center;
     z-index: 1000;
     animation: floatLoading 2s ease-in-out infinite;
+    backdrop-filter: blur(5px);
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .loading.active {
