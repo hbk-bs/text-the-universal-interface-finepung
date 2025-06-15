@@ -234,7 +234,7 @@ h1::after {
 
 .quote::before,
 .quote::after {
-    content: '🦋';
+
     position: absolute;
     font-size: 1.5em;
     animation: flutter 4s ease-in-out infinite;
@@ -264,9 +264,9 @@ h1::after {
 }
 
 .attribution::after {
-    content: '✨';
+    content: '💝'; /* Added ribbon and heart */
     position: absolute;
-    right: -25px;
+    right: -45px;
     top: 0;
     font-size: 1.2em;
     animation: twinkle 2s ease-in-out infinite;
@@ -348,11 +348,11 @@ button:hover, .random-button:hover {
 }
 
 button::before, .random-button::before {
-    content: '🎀';
+    content: '🎀 💖'; /* Added heart */
     position: absolute;
-    top: -12px; /* Reduced from -15px */
-    left: 8px; /* Reduced from 10px */
-    font-size: 1em; /* Reduced from 1.2em */
+    top: -12px;
+    left: 8px;
+    font-size: 1em;
     animation: float 3s ease-in-out infinite;
 }
 
@@ -372,7 +372,7 @@ input[type="file"] {
 }
 
 input[type="file"]::before {
-    content: '📸';
+    content: '📸 ';
     position: absolute;
     left: 15px;
     top: 50%;
@@ -599,7 +599,7 @@ body::before {
 }
 
 .loading::before {
-    content: '✨';
+    content: '✨ 🌟 💫'; /* Added more sparkles */
     font-size: 2em;
     display: block;
     margin-bottom: 1rem;
@@ -636,4 +636,109 @@ body::before {
     25% { content: '.'; }
     50% { content: '..'; }
     75% { content: '...'; }
+}
+
+/* Add decorative corners to result-container */
+.result-container::before,
+.result-container::after {
+    content: '🌸 💝 🎀';
+    position: absolute;
+    font-size: 1.2em;
+}
+
+.result-container::before {
+    top: 10px;
+    left: 10px;
+}
+
+.result-container::after {
+    bottom: 10px;
+    right: 10px;
+}
+
+/* Add floating hearts to the intro-container */
+.intro-container::after {
+    content: '💕 💖 💗';
+    position: absolute;
+    top: -20px;
+    right: 10px;
+    font-size: 1.2em;
+    animation: float 3s ease-in-out infinite;
+}
+
+
+/* Add floating decorations to the left side */
+main::before {
+    content: '🦋 🌺 💫';
+    position: fixed;
+    left: 20px;
+    top: 50%;
+    font-size: 2em;
+    animation: floatSideways 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+/* Add floating decorations to the right side */
+main::after {
+    content: '🎀 💕 ✨';
+    position: fixed;
+    right: 20px;
+    top: 40%;
+    font-size: 2.3em;
+    animation: floatSideways 4s ease-in-out infinite reverse;
+    pointer-events: none;
+}
+
+
+/* Add a new floating animation for side decorations */
+@keyframes floatSideways {
+    0% { transform: translateX(0) rotate(0deg); }
+    50% { transform: translateX(10px) rotate(5deg); }
+    100% { transform: translateX(0) rotate(0deg); }
+}
+
+/* Make sure the z-index is high enough to show above other elements */
+body::after,
+main::before,
+main::after,
+.content-wrapper::after {
+    z-index: 1000;
+}
+
+/* Add sparkly border to main content */
+main {
+    position: relative;
+}
+
+main::before {
+    content: '✨ 🌟 ⭐️ ✨ 🌟 ⭐️ ✨ 🌟 ⭐️';
+    position: absolute;
+    top: -15px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 1.5em;
+    letter-spacing: 0.5em;
+    animation: twinkle 2s ease-in-out infinite;
+    pointer-events: none;
+}
+
+/* Add floating clouds at the bottom */
+.content-wrapper::before {
+    content: '☁️ 🌸 ☁️ 💝 ☁️ 🎀 ☁️';
+    position: fixed;
+    bottom: 180px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 2em;
+    animation: floatHorizontal 15s linear infinite;
+    pointer-events: none;
+    z-index: 999;
+}
+
+/* Add horizontal floating animation */
+@keyframes floatHorizontal {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
 }
