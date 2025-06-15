@@ -171,6 +171,15 @@ h1::after {
     opacity: 0.3;
 }
 
+.right-content {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(255, 192, 203, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
 /* Remove background from button container */
 .button-container,
 #image-container,
@@ -199,19 +208,17 @@ h1::after {
 }
 
 .quote-container {
-    grid-column: 2;
-    margin: 20px auto;
-    padding: 1.5rem;
-    /* Removed border and border-image properties */
-    border-radius: 35px;
-    box-shadow: 
-        0 10px 30px rgba(255, 192, 203, 0.4),
-        0 0 20px rgba(255, 255, 255, 0.8);
-    width: 100%;
-    position: relative;
+    background-color: rgba(255, 192, 203, 0.1); /* Light pink with transparency */
+    padding: 20px;
+    border-radius: 15px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
 }
 
-/* Keep existing .quote and .attribution styles */
+.random-quote {
+    background-color: rgba(147, 197, 253, 0.1); /* Light blue with transparency */
+}
 
 .quote {
     font-family: "Comic Sans MS", cursive;
