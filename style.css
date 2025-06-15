@@ -746,11 +746,11 @@ main::before {
     pointer-events: none;
 }
 
-/* Add floating clouds at the bottom */
+/* Update floating clouds position */
 .content-wrapper::before {
     content: '☁️ 🌸 ☁️ 💝 ☁️ 🎀 ☁️';
     position: fixed;
-    bottom: 180px;
+    bottom: 180px; /* Changed from 300px to 180px to be closer to the bottom */
     left: 0;
     width: 100%;
     text-align: center;
