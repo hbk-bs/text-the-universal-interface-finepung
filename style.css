@@ -99,6 +99,29 @@ h1 {
     position: relative;
     text-align: center;  /* Added this line */
     width: 100%;        /* Added this line */
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Add pulse keyframes */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        text-shadow: 
+            3px 3px 6px rgba(255, 105, 180, 0.4),
+            -2px -2px 4px rgba(255, 255, 255, 0.8);
+    }
+    50% {
+        transform: scale(1.05);
+        text-shadow: 
+            4px 4px 8px rgba(255, 105, 180, 0.6),
+            -3px -3px 6px rgba(255, 255, 255, 0.9);
+    }
+    100% {
+        transform: scale(1);
+        text-shadow: 
+            3px 3px 6px rgba(255, 105, 180, 0.4),
+            -2px -2px 4px rgba(255, 255, 255, 0.8);
+    }
 }
 
 /* Add new keyframes for the floating animation */
