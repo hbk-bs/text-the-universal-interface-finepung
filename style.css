@@ -82,8 +82,8 @@ h1::before, h1::after {
 }
 h1::before {
     background-image: url('https://hbk-bs.github.io/text-the-universal-interface-finepung/pink.png');
-    left: -80px;
-    top: 80%;
+    left: -50px;
+    top: 50%;
 }
 h1::after {
     background-image: url('https://hbk-bs.github.io/text-the-universal-interface-finepung/blue.png');
@@ -373,19 +373,7 @@ main::before {
     animation: twinkle 2s ease-in-out infinite;
     pointer-events: none;
 }
-main::before,
-main::after {
-    z-index: 1000;
-}
-main::after {
-    content: '🎀 💕 ✨';
-    position: fixed;
-    right: 20px;
-    top: 40%;
-    font-size: 1.6em;
-    animation: floatSideways 4s ease-in-out infinite reverse;
-    pointer-events: none;
-}
+
 @keyframes floatSideways {
     0% { transform: translateX(0) rotate(0deg); }
     50% { transform: translateX(10px) rotate(5deg); }
