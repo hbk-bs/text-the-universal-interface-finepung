@@ -407,22 +407,6 @@ main::before {
 }
 
 
-/* --- CUSTOM CURSOR & HEARTS --- */
-.custom-cursor,
-.heart-particle {
-    position: fixed;
-    pointer-events: none;
-    z-index: 9999;
-}
-@keyframes heartPop {
-    0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 0; }
-    20% { transform: translate(var(--tx), var(--ty)) scale(1.2) rotate(var(--rotation)); opacity: 1; }
-    60% { transform: translate(var(--tx), var(--ty)) scale(0.9) rotate(var(--rotation)); opacity: 0.8; }
-    100% { transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(var(--rotation)); opacity: 0; }
-}
-.heart-particle {
-    animation: heartPop 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-}
 
 /* --- RESPONSIVE --- */
 @media (max-width: 600px) {
