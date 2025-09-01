@@ -406,7 +406,12 @@ main::before {
     pointer-events: none;
 }
 
-
+/* --- CUSTOM CURSOR & HEARTS --- */
+/* Remove custom cursor and heart particle styles */
+.custom-cursor,
+.heart-particle {
+    display: none !important;
+}
 
 /* --- RESPONSIVE --- */
 @media (max-width: 600px) {
