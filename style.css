@@ -56,7 +56,7 @@ main {
 /* --- HEADER --- */
 h1 {
     font-family: "Brush Script MT", cursive;
-    font-size: 2em; /* Smaller headline */
+    font-size: 2.5em; /* Slightly bigger headline */
     color: #ff69b4;
     text-shadow: 3px 3px 6px rgba(255, 105, 180, 0.4), -2px -2px 4px rgba(255, 255, 255, 0.8);
     margin: 2rem auto 1rem auto;
@@ -437,7 +437,7 @@ main::before {
         padding: 0.7rem;
         font-size: 1.08em;
     }
-    h1 { font-size: 1.2em; }
+    h1 { font-size: 1.5em; } /* Bigger than before, but still fits mobile */
     h1::before, h1::after {
         width: 28px;
         height: 28px;
