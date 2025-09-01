@@ -98,20 +98,23 @@ h1::after {
 }
 
 /* --- SECTION CONTAINERS --- */
+/* Make all containers and text readable and spaced */
 .intro-container,
 .button-container,
 .result-container,
 .loading {
     width: 100%;
     max-width: 500px;
-    margin: 1rem auto;
-    padding: 1rem;
+    margin: 1.5rem auto;
+    padding: 1.2rem;
     box-sizing: border-box;
     border-radius: 25px;
     background: rgba(255,255,255,0.3);
     display: flex;
     flex-direction: column;
     align-items: stretch;
+    font-size: 1.1em;
+    line-height: 1.7;
 }
 
 .button-container {
@@ -134,19 +137,22 @@ h1::after {
 }
 
 .button-container .random-button {
-    margin-top: 0; /* Ensures no extra margin if you want to control spacing only via form */
+    margin-top: 0;
+    font-size: 1em;
 }
 
 /* --- FORM --- */
+/* Ensure form fields and buttons are spaced and readable */
 form {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.2rem;
     width: 100%;
     max-width: 400px;
     margin: 0 auto;
     align-items: stretch;
     justify-content: center;
+    font-size: 1em;
 }
 input[type="file"] {
     position: relative;
@@ -263,6 +269,7 @@ button::after, .random-button::after {
 }
 
 /* --- QUOTE --- */
+/* Make quote and attribution readable */
 .quote-wrapper {
     width: 100%;
     padding: 1rem;
@@ -291,13 +298,14 @@ button::after, .random-button::after {
 .quote {
     font-family: "Comic Sans MS", cursive;
     font-size: 1.2em;
-    line-height: 1.4;
+    line-height: 1.5;
     color: #ff69b4;
     text-align: center;
     margin-bottom: 1rem;
-    padding: 0 0.8rem;
+    padding: 0.5em 0.8em;
     position: relative;
     width: 100%;
+    word-break: break-word;
 }
 .attribution {
     font-family: "Comic Sans MS", cursive;
@@ -305,9 +313,10 @@ button::after, .random-button::after {
     color: #ff69b4;
     font-style: italic;
     text-align: right;
-    margin-top: 0.8rem;
+    margin-top: 1em;
     text-shadow: 1px 1px 3px rgba(255,105,180,0.3);
     position: relative;
+    word-break: break-word;
 }
 .attribution::after {
     content: '💝';
@@ -425,18 +434,15 @@ main::before {
     .quote-wrapper,
     form {
         max-width: 100vw;
-        padding: 0.5rem;
+        padding: 0.7rem;
+        font-size: 1.08em;
     }
-    h1 { font-size: 1.4em; }
+    h1 { font-size: 1.2em; }
     h1::before, h1::after {
-        width: 32px;
-        height: 32px;
+        width: 28px;
+        height: 28px;
     }
-    .quote { font-size: 1em; }
-    .attribution { font-size: 0.9em; }
+    .quote { font-size: 1.08em; }
+    .attribution { font-size: 0.98em; }
     #image-container img { max-width: 90vw; }
-    .custom-cursor { font-size: 1.5rem; }
-    .heart-particle { font-size: 1.2rem !important; }
 }
-
-/* --- END ---
