@@ -73,8 +73,8 @@ h1 {
 h1::before, h1::after {
     content: '';
     position: absolute;
-    width: 140px;
-    height: 140px;
+    width: 80px;
+    height: 80px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -368,7 +368,7 @@ main::before {
     left: 0;
     width: 100%;
     text-align: center;
-    font-size: 1.5em;
+    font-size: 1.2em;
     letter-spacing: 0.5em;
     animation: twinkle 2s ease-in-out infinite;
     pointer-events: none;
@@ -382,7 +382,7 @@ main::after {
     position: fixed;
     right: 20px;
     top: 40%;
-    font-size: 2.3em;
+    font-size: 1.6em;
     animation: floatSideways 4s ease-in-out infinite reverse;
     pointer-events: none;
 }
