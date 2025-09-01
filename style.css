@@ -82,8 +82,8 @@ h1::before, h1::after {
 }
 h1::before {
     background-image: url('https://hbk-bs.github.io/text-the-universal-interface-finepung/pink.png');
-    left: -50px;
-    top: 50%;
+    left: -80px;
+    top: 80%;
 }
 h1::after {
     background-image: url('https://hbk-bs.github.io/text-the-universal-interface-finepung/blue.png');
