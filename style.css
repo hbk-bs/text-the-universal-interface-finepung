@@ -114,6 +114,29 @@ h1::after {
     align-items: stretch;
 }
 
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    max-width: 500px;
+    margin: 1rem auto;
+    padding: 1rem;
+    box-sizing: border-box;
+    border-radius: 25px;
+    background: rgba(255,255,255,0.3);
+    align-items: stretch;
+}
+
+/* Add spacing below the form so the random button is further down */
+.button-container form {
+    margin-bottom: 2rem;
+}
+
+.button-container .random-button {
+    margin-top: 0; /* Ensures no extra margin if you want to control spacing only via form */
+}
+
 /* --- FORM --- */
 form {
     display: flex;
